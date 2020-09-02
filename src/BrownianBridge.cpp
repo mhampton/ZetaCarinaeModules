@@ -3,11 +3,6 @@
  */
 #include "plugin.hpp"
 
-float outsignal = 0.f;
-float internaltime = 0.f;
-float internalmaxtime = 5.f;
-dsp::SchmittTrigger inputTrigger;
-
 struct BrownianBridge : Module {
 
 	enum ParamIds {
@@ -29,6 +24,11 @@ struct BrownianBridge : Module {
 		SIG_OUTPUT,
 		NUM_OUTPUTS
 	};
+
+	float outsignal = 0.f;
+	float internaltime = 0.f;
+	float internalmaxtime = 5.f;
+	dsp::SchmittTrigger inputTrigger;
 
 	BrownianBridge() {
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
