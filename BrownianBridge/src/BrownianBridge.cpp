@@ -1,6 +1,5 @@
-   /*
+/*
  * Copyright (c) 2020 Marshall Hampton <contact hamptonio at gmail.com>
- *
  */
 #include "plugin.hpp"
 
@@ -53,8 +52,6 @@ struct BrownianBridge : Module {
 		outsignal += args.sampleTime*(range+offset-outsignal)/(timeParam - internaltime);
 		outsignal = clamp(outsignal, offset, range+offset);
  
-        // Audio signals are typically +/-5V
-        // https://vcvrack.com/manual/VoltageStandards.html
         outputs[SIG_OUTPUT].setVoltage(5.f * outsignal);
 	}
 };
@@ -72,17 +69,13 @@ struct BrownianBridgeWidget : ModuleWidget {
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
 		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 56.410)), module, BrownianBridge::NOISE_PARAM));
-
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15.24, 94.410)), module, BrownianBridge::TRIG_INPUT));
-
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(15.24, 114.410)), module, BrownianBridge::SIG_OUTPUT));
-		
 		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 73.410)), module, BrownianBridge::TIME_PARAM));
 		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 24.410)), module, BrownianBridge::RANGE_PARAM));
 		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 40.410)), module, BrownianBridge::OFFSET_PARAM));
 
 
-		//addChild(createLightCentered<MediumLight<RedLight>>(mm2px(Vec(15.24, 25.81)), module, BrownianBridge::BLINK_LIGHT));
 	}
 };
 
