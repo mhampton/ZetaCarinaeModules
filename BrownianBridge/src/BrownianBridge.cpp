@@ -6,6 +6,7 @@
 float outsignal = 0.f;
 float internaltime = 0.f;
 float internalmaxtime = 5.f;
+dsp::SchmittTrigger inputTrigger;
 
 struct BrownianBridge : Module {
 
@@ -30,7 +31,7 @@ struct BrownianBridge : Module {
 		configParam(NOISE_PARAM, 0.f, 1.f, 0.f, "Noise level");
 		configParam(RANGE_PARAM, 0.f, 10.f, 5.f, "Range");
 		configParam(OFFSET_PARAM, -5.f, 5.f, 0.f, "Offset");
-		configParam(TIME_PARAM, 0.1f, 5.f, 1.f, "Time");
+		configParam(TIME_PARAM, 0.0001f, 5.f, 1.f, "Time");
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -38,7 +39,8 @@ struct BrownianBridge : Module {
 		float offset = params[OFFSET_PARAM].getValue();
 		float noise = params[NOISE_PARAM].getValue();
 		float timeParam = params[TIME_PARAM].getValue();
-		if(timeParam!=internalmaxtime){
+	
+		if (inputTrigger.process(inputs[TRIG_INPUT].getVoltageSum()) or timeParam!=internalmaxtime){
 			internaltime = 0;
 			outsignal = offset;
 			internalmaxtime = timeParam;
@@ -47,8 +49,8 @@ struct BrownianBridge : Module {
 		float r = random::normal(); 
 
 		internaltime += args.sampleTime;
-		internaltime = clamp(internaltime,0.0f,timeParam*0.99f);
-		outsignal += std::sqrt(args.sampleTime)*r*noise;
+		internaltime = clamp(internaltime,0.0f,timeParam*0.999999f);
+		outsignal += std::sqrt(args.sampleTime)*r*noise*range;
 		outsignal += args.sampleTime*(range+offset-outsignal)/(timeParam - internaltime);
 		outsignal = clamp(outsignal, offset, range+offset);
  
