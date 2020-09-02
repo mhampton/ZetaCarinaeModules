@@ -39,10 +39,10 @@ struct BrownianBridge : Module {
 	}
 
 	void process(const ProcessArgs& args) override {
-		float range = params[RANGE_PARAM].getValue();
-		float offset = params[OFFSET_PARAM].getValue();
-		float noise = params[NOISE_PARAM].getValue();
-		float timeParam = params[TIME_PARAM].getValue();
+		float range = params[RANGE_PARAM].getValue() + inputs[RANGE_INPUT].getVoltage();
+		float offset = params[OFFSET_PARAM].getValue() + inputs[OFFSET_INPUT].getVoltage();
+		float noise = params[NOISE_PARAM].getValue() + inputs[NOISE_INPUT].getVoltage();
+		float timeParam = params[TIME_PARAM].getValue() + inputs[TIME_INPUT].getVoltage();
 	
 		if (inputTrigger.process(inputs[TRIG_INPUT].getVoltageSum()) or timeParam!=internalmaxtime){
 			internaltime = 0;
