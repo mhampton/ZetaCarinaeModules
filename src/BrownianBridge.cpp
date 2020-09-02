@@ -18,6 +18,10 @@ struct BrownianBridge : Module {
 		NUM_PARAMS
 	};
 	enum InputIds {
+		RANGE_INPUT,
+		OFFSET_INPUT,
+		NOISE_INPUT,
+		TIME_INPUT,
 		TRIG_INPUT,
 		NUM_INPUTS
 	};
@@ -70,12 +74,20 @@ struct BrownianBridgeWidget : ModuleWidget {
 		addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 56.410)), module, BrownianBridge::NOISE_PARAM));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(15.24, 94.410)), module, BrownianBridge::TRIG_INPUT));
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(15.24, 114.410)), module, BrownianBridge::SIG_OUTPUT));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 73.410)), module, BrownianBridge::TIME_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 24.410)), module, BrownianBridge::RANGE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(15.24, 40.410)), module, BrownianBridge::OFFSET_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(20.0, 24.0)), module, BrownianBridge::RANGE_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(20.0, 44.0)), module, BrownianBridge::OFFSET_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(20.0, 64.0)), module, BrownianBridge::NOISE_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(20.0, 84.0)), module, BrownianBridge::TIME_PARAM));
+
+
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8, 24)), module, BrownianBridge::RANGE_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8, 44)), module, BrownianBridge::OFFSET_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8, 64)), module, BrownianBridge::NOISE_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8, 84)), module, BrownianBridge::TIME_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8, 109)), module, BrownianBridge::TRIG_INPUT));
+
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(24, 109)), module, BrownianBridge::SIG_OUTPUT));
+
 
 
 	}
