@@ -35,7 +35,7 @@ struct BrownianBridge : Module {
 		configParam(NOISE_PARAM, 0.f, 1.f, 0.f, "Noise level");
 		configParam(RANGE_PARAM, 0.f, 10.f, 5.f, "Range");
 		configParam(OFFSET_PARAM, -5.f, 5.f, 0.f, "Offset");
-		configParam(TIME_PARAM, 0.0001f, 5.f, 1.f, "Time");
+		configParam(TIME_PARAM, -10.f, 10.f, 1.f, "Time","", 2.0);
 	}
 
 	void process(const ProcessArgs& args) override {
