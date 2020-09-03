@@ -58,7 +58,7 @@ struct BrownianBridge : Module {
 			float noise = params[NOISE_PARAM].getValue() + inputs[NOISE_INPUT].getVoltage(c)/10.0f;
 			float timeParam = std::pow(2.0,params[TIME_PARAM].getValue()) + inputs[TIME_INPUT].getVoltage(c);
 		
-			if (inputTrigger[c].process(inputs[TRIG_INPUT].getVoltage(c)) or timeParam!=internalmaxtime[c]){
+			if (inputTrigger[c].process(inputs[TRIG_INPUT].getVoltage(c)) || timeParam!=internalmaxtime[c]){
 				internaltime[c] = 0.f;
 				outsignal[c] = offset;
 				internalmaxtime[c] = timeParam;
