@@ -29,6 +29,7 @@ struct BrownianBridge : Module {
 	float internaltime = 0.f;
 	float internalmaxtime = 5.f;
 	dsp::SchmittTrigger inputTrigger;
+	float sqrtdelta = 1.0/std::sqrt(APP->engine->getSampleRate());
 
 	BrownianBridge() {
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
@@ -38,11 +39,15 @@ struct BrownianBridge : Module {
 		configParam(TIME_PARAM, -10.f, 10.f, 1.f, "Time","", 2.0);
 	}
 
+	void onSampleRateChange() override {
+		sqrtdelta = 1.0/std::sqrt(APP->engine->getSampleRate());
+	}
+
 	void process(const ProcessArgs& args) override {
 		float range = params[RANGE_PARAM].getValue() + inputs[RANGE_INPUT].getVoltage();
 		float offset = params[OFFSET_PARAM].getValue() + inputs[OFFSET_INPUT].getVoltage();
-		float noise = params[NOISE_PARAM].getValue() + inputs[NOISE_INPUT].getVoltage();
-		float timeParam = params[TIME_PARAM].getValue() + inputs[TIME_INPUT].getVoltage();
+		float noise = params[NOISE_PARAM].getValue() + inputs[NOISE_INPUT].getVoltage()/10.0f;
+		float timeParam = std::pow(2.0,params[TIME_PARAM].getValue()) + inputs[TIME_INPUT].getVoltage();
 	
 		if (inputTrigger.process(inputs[TRIG_INPUT].getVoltageSum()) or timeParam!=internalmaxtime){
 			internaltime = 0;
@@ -53,12 +58,17 @@ struct BrownianBridge : Module {
 		float r = random::normal(); 
 
 		internaltime += args.sampleTime;
-		internaltime = clamp(internaltime,0.0f,timeParam*0.999999f);
-		outsignal += std::sqrt(args.sampleTime)*r*noise*range;
-		outsignal += args.sampleTime*(range+offset-outsignal)/(timeParam - internaltime);
-		outsignal = clamp(outsignal, offset, range+offset);
+		internaltime = clamp(internaltime,0.0f,timeParam);
+		if(internaltime < timeParam*0.999999f){
+			outsignal += sqrtdelta*r*noise*range;
+			outsignal += args.sampleTime*(range+offset-outsignal)/(timeParam - internaltime);
+			outsignal = clamp(outsignal, offset, range+offset);
+		}
+		else{
+			outsignal = range+offset;
+		}
  
-        outputs[SIG_OUTPUT].setVoltage(5.f * outsignal);
+        outputs[SIG_OUTPUT].setVoltage(outsignal);
 	}
 };
 
