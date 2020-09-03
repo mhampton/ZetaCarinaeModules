@@ -35,8 +35,8 @@ struct BrownianBridge : Module {
 	BrownianBridge() {
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
 		configParam(NOISE_PARAM, 0.f, 1.f, 0.f, "Noise level");
-		configParam(RANGE_PARAM, 0.f, 10.f, 5.f, "Range");
-		configParam(OFFSET_PARAM, -5.f, 5.f, 0.f, "Offset");
+		configParam(RANGE_PARAM, -10.f, 10.f, 5.f, "Range");
+		configParam(OFFSET_PARAM, -10.f, 10.f, 0.f, "Offset");
 		configParam(TIME_PARAM, -10.f, 10.f, 1.f, "Time","", 2.0);
 	}
 
