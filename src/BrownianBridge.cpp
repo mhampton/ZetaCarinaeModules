@@ -2,6 +2,7 @@
  * Copyright (c) 2020 Marshall Hampton <contact hamptonio at gmail.com>
  */
 #include "plugin.hpp"
+#include <array>
 
 struct BrownianBridge : Module {
 
@@ -25,10 +26,10 @@ struct BrownianBridge : Module {
 		NUM_OUTPUTS
 	};
 
-	float outsignal = 0.f;
-	float internaltime = 0.f;
-	float internalmaxtime = 5.f;
-	dsp::SchmittTrigger inputTrigger;
+	float outsignal[16] = {0};
+	float internaltime[16] = {0};
+	float internalmaxtime[16] = {5};
+	std::array<rack::dsp::SchmittTrigger,16> inputTrigger;
 	float sqrtdelta = 1.0/std::sqrt(APP->engine->getSampleRate());
 
 	BrownianBridge() {
@@ -44,31 +45,41 @@ struct BrownianBridge : Module {
 	}
 
 	void process(const ProcessArgs& args) override {
-		float range = params[RANGE_PARAM].getValue() + inputs[RANGE_INPUT].getVoltage();
-		float offset = params[OFFSET_PARAM].getValue() + inputs[OFFSET_INPUT].getVoltage();
-		float noise = params[NOISE_PARAM].getValue() + inputs[NOISE_INPUT].getVoltage()/10.0f;
-		float timeParam = std::pow(2.0,params[TIME_PARAM].getValue()) + inputs[TIME_INPUT].getVoltage();
-	
-		if (inputTrigger.process(inputs[TRIG_INPUT].getVoltageSum()) or timeParam!=internalmaxtime){
-			internaltime = 0;
-			outsignal = offset;
-			internalmaxtime = timeParam;
-		}
 
-		float r = random::normal(); 
+		int channels = std::max(inputs[TRIG_INPUT].getChannels(),
+			std::max(inputs[RANGE_INPUT].getChannels(),
+			std::max(inputs[OFFSET_INPUT].getChannels(),
+			std::max(inputs[NOISE_INPUT].getChannels(),
+			std::max(inputs[TIME_INPUT].getChannels(),
+			1)))));
+		for (int c = 0; c < channels; c++) {
+			float range = params[RANGE_PARAM].getValue() + inputs[RANGE_INPUT].getVoltage(c);
+			float offset = params[OFFSET_PARAM].getValue() + inputs[OFFSET_INPUT].getVoltage(c);
+			float noise = params[NOISE_PARAM].getValue() + inputs[NOISE_INPUT].getVoltage(c)/10.0f;
+			float timeParam = std::pow(2.0,params[TIME_PARAM].getValue()) + inputs[TIME_INPUT].getVoltage(c);
+		
+			if (inputTrigger[c].process(inputs[TRIG_INPUT].getVoltage(c)) or timeParam!=internalmaxtime[c]){
+				internaltime[c] = 0.f;
+				outsignal[c] = offset;
+				internalmaxtime[c] = timeParam;
+			}
 
-		internaltime += args.sampleTime;
-		internaltime = clamp(internaltime,0.0f,timeParam);
-		if(internaltime < timeParam*0.999999f){
-			outsignal += sqrtdelta*r*noise*range;
-			outsignal += args.sampleTime*(range+offset-outsignal)/(timeParam - internaltime);
-			outsignal = clamp(outsignal, offset, range+offset);
+			float r = random::normal(); 
+
+			internaltime[c] += args.sampleTime;
+			internaltime[c] = clamp(internaltime[c],0.0f,timeParam);
+			if(internaltime[c] < timeParam*0.999999f){
+				outsignal[c] += sqrtdelta*r*noise*range;
+				outsignal[c] += args.sampleTime*(range+offset-outsignal[c])/(timeParam - internaltime[c]);
+				outsignal[c] = clamp(outsignal[c], offset, range+offset);
+			}
+			else{
+				outsignal[c] = range+offset;
+			}
+			outputs[SIG_OUTPUT].setVoltage(outsignal[c],c);
 		}
-		else{
-			outsignal = range+offset;
-		}
- 
-        outputs[SIG_OUTPUT].setVoltage(outsignal);
+		outputs[SIG_OUTPUT].setChannels(channels);
+        
 	}
 };
 
