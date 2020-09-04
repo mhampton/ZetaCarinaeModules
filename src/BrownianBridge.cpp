@@ -65,13 +65,15 @@ struct BrownianBridge : Module {
 			}
 
 			float r = random::normal(); 
+			//float maxout = std:max(range+offset,offset);
+			//float minout = std:min(range+offset,offset);
 
 			internaltime[c] += args.sampleTime;
 			internaltime[c] = clamp(internaltime[c],0.0f,timeParam);
 			if(internaltime[c] < timeParam*0.999999f){
 				outsignal[c] += sqrtdelta*r*noise*range;
 				outsignal[c] += args.sampleTime*(range+offset-outsignal[c])/(timeParam - internaltime[c]);
-				outsignal[c] = clamp(outsignal[c], offset, range+offset);
+				// outsignal[c] = clamp(outsignal[c], offset, range+offset); 
 			}
 			else{
 				outsignal[c] = range+offset;

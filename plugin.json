@@ -14,7 +14,7 @@
   "changelogUrl": "",
   "modules": [
     {
-      "slug": "ZetaCarinae-BrownianBridge",
+      "slug": "BrownianBridge",
       "name": "BrownianBridge",
       "description": "Brownian bridge from one value to another",
       "tags": ["Random", "Utility"]
