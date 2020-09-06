@@ -32,7 +32,7 @@ struct OrnsteinUhlenbeck : Module {
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
 		configParam(NOISE_PARAM, 0.f, 5.f, 0.f, "Noise level");
 		configParam(SPRING_PARAM, 0.f, 10.f, 0.f, "Mean reverting strength");
-		configParam(MEAN_PARAM, -10.f, 10.f, 1.f, "Mean","", 2.0);
+		configParam(MEAN_PARAM, -10.f, 10.f, 1.f, "Mean");
 	}
 
 	void onSampleRateChange() override {
