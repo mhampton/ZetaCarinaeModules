@@ -30,8 +30,8 @@ struct OrnsteinUhlenbeck : Module {
 
 	OrnsteinUhlenbeck() {
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
-		configParam(NOISE_PARAM, 0.f, 1.f, 0.f, "Noise level");
-		configParam(SPRING_PARAM, 0.f, 1.f, 0.f, "Mean reverting strength");
+		configParam(NOISE_PARAM, 0.f, 5.f, 0.f, "Noise level");
+		configParam(SPRING_PARAM, 0.f, 10.f, 0.f, "Mean reverting strength");
 		configParam(MEAN_PARAM, -10.f, 10.f, 1.f, "Mean","", 2.0);
 	}
 
@@ -59,7 +59,7 @@ struct OrnsteinUhlenbeck : Module {
 			float r = random::normal(); 
 			outsignal[c] += sqrtdelta*r*noise;
 			outsignal[c] += spring*(mean-outsignal[c])*args.sampleTime;
-
+			outputs[SIG_OUTPUT].setVoltage(outsignal[c],c);
 		}
 		outputs[SIG_OUTPUT].setChannels(channels);
         
@@ -71,21 +71,23 @@ struct OrnsteinUhlenbeck : Module {
 struct OrnsteinUhlenbeckWidget : ModuleWidget {
 	OrnsteinUhlenbeckWidget(OrnsteinUhlenbeck* module) {
 		setModule(module);
-		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/OrnsteinUhlenbeck.svg")));
+		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/OrnsteinUhlenbeckPlate.svg")));
 
 		addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(20.0, 26.0)), module, OrnsteinUhlenbeck::NOISE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(20.0, 58.0)), module, OrnsteinUhlenbeck::MEAN_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.16, 22.2)), module, OrnsteinUhlenbeck::NOISE_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.16, 46.4)), module, OrnsteinUhlenbeck::SPRING_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.16, 71.8)), module, OrnsteinUhlenbeck::MEAN_PARAM));
 
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8, 39)), module, OrnsteinUhlenbeck::NOISE_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8, 69)), module, OrnsteinUhlenbeck::MEAN_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(8, 86)), module, OrnsteinUhlenbeck::TRIG_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.16, 34.8)), module, OrnsteinUhlenbeck::NOISE_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.16, 59)), module, OrnsteinUhlenbeck::SPRING_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.16, 84.4)), module, OrnsteinUhlenbeck::MEAN_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.16, 96.3)), module, OrnsteinUhlenbeck::TRIG_INPUT));
 
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(24, 109)), module, OrnsteinUhlenbeck::SIG_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(10.16, 114)), module, OrnsteinUhlenbeck::SIG_OUTPUT));
 
 
 
