@@ -8,4 +8,5 @@ The first module, the Brownian Bridge (https://en.wikipedia.org/wiki/Brownian_br
 
 The second module implements an [Ornstein-Uhlenbeck process](https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process) (also known as the Vasicek model in finance).  It is a Brownian motion that has an additional mean-reverting tendency, which can be useful compared to a Brownian motion that is reflected within a bounded interval.
 
-![Ornstein-Uhlenbeck in VCV](https://github.com/mhampton/ZetaCarinaeModules/blob/master/Ornstein.png?raw=true =250x "Ornstein-Uhlenbeck in action")
+
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Ornstein.png?raw=true " alt="Ornstein-Uhlenbeck in VCV" width="200"/>
