@@ -20,6 +20,12 @@
       "name": "BrownianBridge",
       "description": "Brownian bridge from one value to another",
       "tags": ["Random", "Utility"]
+    },
+    {
+      "slug": "OrnsteinUhlenbeck",
+      "name": "OrnsteinUhlenbeck",
+      "description": "Ornstein-Uhlenbeck stochastic process",
+      "tags": ["Random", "Utility"]
     }
   ]
 }
