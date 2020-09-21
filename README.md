@@ -10,3 +10,5 @@ The second module implements an [Ornstein-Uhlenbeck process](https://en.wikipedi
 
 
 <img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Ornstein.png?raw=true " alt="Ornstein-Uhlenbeck in VCV" width="200"/>
+
+Thanks to Xenakios, Squinky.Labs, and baconpaul for suggestions on improvements.
