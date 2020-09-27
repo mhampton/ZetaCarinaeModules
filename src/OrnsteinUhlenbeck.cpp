@@ -87,7 +87,7 @@ struct OrnsteinUhlenbeckWidget : ModuleWidget {
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.16, 84.4)), module, OrnsteinUhlenbeck::MEAN_INPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.16, 96.3)), module, OrnsteinUhlenbeck::TRIG_INPUT));
 
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(10.16, 114)), module, OrnsteinUhlenbeck::SIG_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(10.16, 113.76)), module, OrnsteinUhlenbeck::SIG_OUTPUT));
 
 
 
