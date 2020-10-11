@@ -10,4 +10,4 @@ extern Plugin* pluginInstance;
 // Declare each Model, defined in each module source file
 extern Model* modelBrownianBridge;
 extern Model* modelOrnsteinUhlenbeck;
-extern Model* modelDynamo;
+extern Model* modelIOU;

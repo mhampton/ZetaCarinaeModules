@@ -24,6 +24,12 @@
       "name": "OrnsteinUhlenbeck",
       "description": "Ornstein-Uhlenbeck stochastic process",
       "tags": ["Random", "Utility"]
+    },
+    {
+      "slug": "IOU",
+      "name": "IOU",
+      "description": "stochastic generator/mixer",
+      "tags": ["Random"]
     }
   ]
 }
