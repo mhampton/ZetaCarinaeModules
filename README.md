@@ -24,6 +24,8 @@ where c is a linear damping parameter, k is a spring-like restoring parameter fo
 The fourth module, the Weeble Warbler, is quite different.  It is my first attempt at an oscillator.  For each polyphonic channel it creates 8 dynamical systems which can be randomly perturbed by Brownian motions.  The eight channels can be altered in octaves to some extent by a harmonic control, and detuned.  The basic oscillation of each subsystem is of the form
 
 x' = - k y + x (1 - x^2 - y^2) + external + noise
+
+
 y' = k x + y (1 - x^2 - y^2)
 
 The cubic terms herd each suboscillator towards a stable limit cycle with frequency k.  Left alone, these create sine waves, but adding an external signal will perturb the system in interesting ways.  
