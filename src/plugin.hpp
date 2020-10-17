@@ -11,3 +11,4 @@ extern Plugin* pluginInstance;
 extern Model* modelBrownianBridge;
 extern Model* modelOrnsteinUhlenbeck;
 extern Model* modelIOU;
+extern Model* modelWarbler;

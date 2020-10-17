@@ -30,6 +30,12 @@
       "name": "IOU",
       "description": "stochastic generator/mixer",
       "tags": ["Random"]
+    },
+    {
+      "slug": "Warbler",
+      "name": "WeebleWarbler",
+      "description": "Oscillator with some mixing capability",
+      "tags": ["Oscillator"]
     }
   ]
 }
