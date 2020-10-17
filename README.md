@@ -19,7 +19,7 @@ dy = (-c y - k(m - x))dt + s dB
 
 where c is a linear damping parameter, k is a spring-like restoring parameter for the mean value m of x, and s is the amplitude of a Brownian motion process.  The module provides outputs for the Brownian increments (white noise) and the values of x and y.  An external input can be mixed together with all of the outputs.
 
-<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/IOU_inaction.png?raw=true " alt="IOU module in action" width="200"/>
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/IOU_inaction.png?raw=true " alt="IOU module in action" width="400"/>
 
 The fourth module, the Weeble Warbler, is quite different.  It is my first attempt at an oscillator.  For each polyphonic channel it creates 8 dynamical systems which can be randomly perturbed by Brownian motions.  The eight channels can be altered in octaves to some extent by a harmonic control, and detuned.  The basic oscillation of each subsystem is of the form
 
@@ -28,6 +28,6 @@ y' = k x + y (1 - x^2 - y^2)
 
 The cubic terms herd each suboscillator towards a stable limit cycle with frequency k.  Left alone, these create sine waves, but adding an external signal will perturb the system in interesting ways.  
 
-<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Warbler.png?raw=true " alt="IOU module in action" width="200"/>
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Warbler.png?raw=true " alt="IOU module in action" width="400"/>
 
 Thanks to Xenakios, Squinky.Labs, and baconpaul for suggestions on improvements.
