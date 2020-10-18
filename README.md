@@ -30,6 +30,6 @@ y' = k x + y (1 - x^2 - y^2)
 
 The cubic terms herd each suboscillator towards a stable limit cycle with frequency k.  Left alone, these create sine waves, but adding an external signal will perturb the system in interesting ways.  
 
-<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Warbler.png?raw=true " alt="IOU module in action" width="400"/>
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Warbler.png?raw=true " alt="Warbler in action" width="400"/>
 
 Thanks to Xenakios, Squinky.Labs, baconpaul, and augment for suggestions on improvements in the VCV community forum.
