@@ -32,4 +32,4 @@ The cubic terms herd each suboscillator towards a stable limit cycle with freque
 
 <img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Warbler.png?raw=true " alt="IOU module in action" width="400"/>
 
-Thanks to Xenakios, Squinky.Labs, and baconpaul for suggestions on improvements.
+Thanks to Xenakios, Squinky.Labs, baconpaul, and augment for suggestions on improvements in the VCV community forum.

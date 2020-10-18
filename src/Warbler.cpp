@@ -10,6 +10,7 @@ struct WarblerModule : Module
 		DETUNE_PARAM,
 		GAIN_PARAM,
 		HARMN_PARAM,
+		RGAIN_PARAM,
         NUM_PARAMS
     };
     enum InputIds {
@@ -54,6 +55,7 @@ struct WarblerModule : Module
 		configParam(DETUNE_PARAM, 0.f, 1000.f, 0.1f, "Variation/detune amount");
 		configParam(GAIN_PARAM, 0.f, 10.f, 1.0f, "Input influence");
 		configParam(HARMN_PARAM, 0, 10, 5, "(Sub)Harmonics");
+		configParam(RGAIN_PARAM, 0, 2, 0.1, "Attenuator for external random influence");
 	};
 
     void onSampleRateChange() override {
@@ -69,7 +71,7 @@ struct WarblerModule : Module
 			1))));
 
 		for (int c = 0; c < channels; c++) {
-			float noise = params[NOISE_PARAM].getValue() + inputs[NOISE_INPUT].getVoltage(c);
+			float noise = params[NOISE_PARAM].getValue() + params[RGAIN_PARAM].getValue()*inputs[NOISE_INPUT].getVoltage(c);
 			float detune = params[DETUNE_PARAM].getValue() + inputs[DETUNE_INPUT].getVoltage(c);
 			float pitch = inputs[PITCH_INPUT].getVoltage(c);
 			float extin = inputs[EXT_INPUT].getVoltage(c)/40.0f;
@@ -77,7 +79,6 @@ struct WarblerModule : Module
 			int hp = round(params[HARMN_PARAM].getValue() + inputs[HARMN_INPUT].getVoltage(c));
 			hp = clamp(hp,0,10);
 			
-			//float rad2 = xoutsignal[c]*xoutsignal[c] + youtsignal[c]*youtsignal[c];
 			xoutsignal[c] = 0.f;
 			youtsignal[c] = 0.f;
 			for (int ri = 0; ri < 8; ri++) {
@@ -90,7 +91,6 @@ struct WarblerModule : Module
 				float r = random::normal()*noise*sqrtdelta; 
 				float xdnew = rf*kf*(-yint[c*8 + ri] + 2.f*xint[c*8 + ri]*(1.0f - rad2) + ingain*extin + r)*args.sampleTime;
 				
-				// TODO: add gain to external in; 
 				yint[c*8 + ri] += rf*kf*(xint[c*8 + ri] + 2.f*yint[c*8 + ri]*(1.0f - rad2))*args.sampleTime;
 				xint[c*8 + ri] += xdnew;
 				indets[c*8 + ri] += (yint[c*8 + ri]*dets[ri]*detune - indets[c*8 + ri])*args.sampleTime;  // had a +r here, was too much
@@ -128,12 +128,13 @@ struct WarblerWidget : ModuleWidget {
 		addChild(createWidget<ScrewSilver>(Vec(0, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 1 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10, 17.)), module, WarblerModule::NOISE_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(5.5, 17.)), module, WarblerModule::NOISE_PARAM));
+		addParam(createParamCentered<RoundSmallBlackKnob>(mm2px(Vec(26, 17.)), module, WarblerModule::RGAIN_PARAM));
 		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10, 36.)), module, WarblerModule::DETUNE_PARAM));
 		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10, 55.)), module, WarblerModule::GAIN_PARAM));
 		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10, 74.)), module, WarblerModule::HARMN_PARAM));
 
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(21, 17)), module, WarblerModule::NOISE_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(17, 17)), module, WarblerModule::NOISE_INPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(21, 36)), module, WarblerModule::DETUNE_INPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(21, 55)), module, WarblerModule::GAIN_INPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(21, 74)), module, WarblerModule::HARMN_INPUT));
