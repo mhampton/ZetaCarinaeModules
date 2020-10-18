@@ -36,7 +36,7 @@ struct WarblerModule : Module
 	float xint[128] = {0};
 	float yint[128] = {1};
     float sqrtdelta = 1.0f/std::sqrt(APP->engine->getSampleRate());
-	float dets[8] = {1,-1,2,-2,3,-3,3,-4};
+	float dets[8] = {0,-1,2,-3,4,-5,6,-7};
 	//float dets[8] = {0.000929f,0.000377f,0.000076f,0.0f,0.000081f,0.000108f,0.000153f,0.000487f};
     float indets[128] = {0.001f};
 	float mults[168] = {
@@ -120,7 +120,6 @@ struct WarblerModule : Module
 				
 			}
 
-			//float Trad = xoutsignal[c]*xoutsignal[c] + youtsignal[c]*youtsignal[c];
 			xoutsignal[c] = clamp(xoutsignal[c]/2.f,-5.f,5.f);
 			youtsignal[c] = clamp(youtsignal[c]/2.f,-5.f,5.f);
 
