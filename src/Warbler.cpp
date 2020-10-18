@@ -35,18 +35,29 @@ struct WarblerModule : Module
     float sqrtdelta = 1.0/std::sqrt(APP->engine->getSampleRate());
 	float dets[8] = {-0.000929,-0.000377,-0.000076,0.0,0.000081,0.000108,0.000153,0.000487};
 	float indets[128] = {0};
-	float mults[88] = {
-		0.0625,0.125,0.25,0.25,0.5,0.5,1.0,1.0,
-		0.125,0.25,0.25,0.5,0.5,1.0,1.0,1.0,
-		0.25,0.5,0.5,1.0,1.0,1.0,1.0,2.0,
-		0.25,0.5,0.5,1.0,1.0,1.0,2.0,2.0,
-		0.5,0.5,1.0,1.0,1.0,1.0,1.0,2.0,
-		1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,
-		0.5,1.0,1.0,1.0,1.0,1.0,2.0,2.0,
-		0.5,1.0,1.0,1.0,2.0,2.0,2.0,3.0,
-		1.0,1.0,1.0,1.0,2.0,2.0,3.0,4.0,
-		1.0,1.0,2.0,2.0,3.0,4.0,5.0,6.0,
-		1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,
+	float mults[176] = {
+		0.03125, 0.0625,0.125,0.25,0.5, 0.5, 1.0, 1.0,
+		0.0625,  0.125, 0.25, 0.25,0.5, 0.5, 1.0, 1.0,
+		0.125,   0.25,  0.25, 0.5, 0.5, 0.5, 1.0, 1.0,
+		0.125,   0.25,  0.25, 0.5, 0.5, 1.0, 1.0, 1.0,
+		0.25,    0.25,  0.5,  0.5, 1.0, 1.0, 1.0, 1.0,
+		0.25,    0.5,   0.5,  0.5, 1.0, 1.0, 1.0, 2.0,
+		0.25,    0.5,   0.5,  1.0, 1.0, 1.0, 1.0, 2.0,
+		0.25,    0.5,   0.5,  1.0, 1.0, 1.0, 2.0, 2.0,
+		0.25,    0.5,   1.0,  1.0, 1.0, 1.0, 1.0, 2.0,
+		0.50,    0.5,   1.0,  1.0, 1.0, 1.0, 1.0, 2.0,
+		1.00,    1.0,   1.0,  1.0, 1.0, 1.0, 1.0, 1.0, //
+		1.00,    1.0,   1.0,  1.0, 1.0, 1.0, 1.0, 2.0,
+		0.50,    1.0,   1.0,  1.0, 1.0, 1.0, 2.0, 2.0,
+		0.50,    1.0,   1.0,  1.0, 1.0, 2.0, 2.0, 2.0,
+		0.50,    1.0,   1.0,  1.0, 2.0, 2.0, 2.0, 3.0,
+		0.50,    1.0,   1.0,  1.0, 2.0, 2.0, 3.0, 3.0,
+		1.00,    1.0,   1.0,  1.0, 2.0, 2.0, 3.0, 4.0,
+		1.00,    1.0,   1.0,  2.0, 2.0, 2.0, 3.0, 5.0,
+		1.00,    1.0,   2.0,  2.0, 3.0, 4.0, 5.0, 6.0,
+		1.00,    1.0,   2.0,  3.0, 4.0, 5.0, 6.0, 7.0,
+		1.00,    2.0,   3.0,  4.0, 5.0, 6.0, 7.0, 7.0,
+		1.00,    2.0,   3.0,  4.0, 5.0, 6.0, 7.0, 8.0,
 	};
 
     WarblerModule() {
@@ -54,7 +65,7 @@ struct WarblerModule : Module
 		configParam(NOISE_PARAM, 0.f, 1.f, 0.01f, "Stochasticity");
 		configParam(DETUNE_PARAM, 0.f, 1000.f, 0.1f, "Variation/detune amount");
 		configParam(GAIN_PARAM, 0.f, 10.f, 1.0f, "Input influence");
-		configParam(HARMN_PARAM, 0, 10, 5, "(Sub)Harmonics");
+		configParam(HARMN_PARAM, 0, 20, 10, "(Sub)Harmonics");
 		configParam(RGAIN_PARAM, 0, 2, 0.1, "Attenuator for external random influence");
 	};
 
@@ -77,7 +88,7 @@ struct WarblerModule : Module
 			float extin = inputs[EXT_INPUT].getVoltage(c)/40.0f;
 			float ingain = params[GAIN_PARAM].getValue() + inputs[GAIN_INPUT].getVoltage(c);
 			int hp = round(params[HARMN_PARAM].getValue() + inputs[HARMN_INPUT].getVoltage(c));
-			hp = clamp(hp,0,10);
+			hp = clamp(hp,0,20);
 			
 			xoutsignal[c] = 0.f;
 			youtsignal[c] = 0.f;
@@ -102,9 +113,6 @@ struct WarblerModule : Module
 				youtsignal[c] += yint[c*8 + ri];
 				
 			}
-			// float rad2t = xoutsignal[c]*xoutsignal[c] + youtsignal[c]*youtsignal[c];
-			// xoutsignal[c] += 10.f*xoutsignal[c]*(1.0f - rad2t)*args.sampleTime;
-			// youtsignal[c] += 10.f*youtsignal[c]*(1.0f - rad2t)*args.sampleTime;
 
 			xoutsignal[c] = clamp(xoutsignal[c]/2.0f,-5.f,5.f);
 			youtsignal[c] = clamp(youtsignal[c]/2.0f,-5.f,5.f);
