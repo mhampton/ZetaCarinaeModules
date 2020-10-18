@@ -93,7 +93,7 @@ struct WarblerModule : Module
 				// TODO: add gain to external in; 
 				yint[c*8 + ri] += rf*kf*(xint[c*8 + ri] + 2.f*yint[c*8 + ri]*(1.0f - rad2))*args.sampleTime;
 				xint[c*8 + ri] += xdnew;
-				indets[c*8 + ri] += r + (dets[ri]*detune - indets[c*8 + ri])*args.sampleTime;
+				indets[c*8 + ri] += (yint[c*8 + ri]*dets[ri]*detune - indets[c*8 + ri])*args.sampleTime;  // had a +r here, was too much
 
 				xint[c*8 + ri] = clamp(xint[c*8 + ri], -1.25f, 1.25f);
 				yint[c*8 + ri] = clamp(yint[c*8 + ri], -1.25f, 1.25f);
