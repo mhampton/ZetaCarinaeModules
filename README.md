@@ -32,4 +32,9 @@ The cubic terms herd each suboscillator towards a stable limit cycle with freque
 
 <img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Warbler.png?raw=true " alt="Warbler in action" width="400"/>
 
-Thanks to Xenakios, Squinky.Labs, baconpaul, and augment for suggestions on improvements in the VCV community forum.
+The fifth module, still somewhat in development, is called Rosenchance.  It is a 2-state, 2-emission Hidden Markov Model (HMM). 
+
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Rosenchance.png?raw=true " alt="Warbler in action" width="300px"/>
+
+
+Thanks to Xenakios, Squinky.Labs, baconpaul, k-chaffin, and augment for suggestions on improvements to these modules in the VCV community forum.  And thank you Andrew Belt for creating and maintaining VCV Rack.
