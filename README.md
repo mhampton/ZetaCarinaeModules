@@ -32,9 +32,13 @@ The cubic terms herd each suboscillator towards a stable limit cycle with freque
 
 <img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Warbler.png?raw=true " alt="Warbler in action" width="400"/>
 
-The fifth module, still somewhat in development, is called Rosenchance.  It is a 2-state, 2-emission Hidden Markov Model (HMM). 
+The fifth module is called Rosenchance.  It is a 2-state, 2-emission Hidden Markov Model (HMM).  The modulatable parameters P_A,A and P_B,B control the self-transition probabilities of the two states (A and B):
 
-<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Rosenchance.png?raw=true " alt="Warbler in action" width="150px"/>
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/RosenchanceStates.png?raw=true " alt="Warbler in action" width="200px"/>
+
+Each time a trigger is received, a state transition occurs and an emission value is generated.  For each state there is a modulatable probability P_E1 of emitting the E1 value for that state; the other emission value E2 has probability 1-P_E1.  The outputs also provide the current state (encoded as A=1V, B=2V), and triggers for the entry into each state (similar to the Bernoulli gate).  
+
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Rosenchance.png?raw=true " alt="Warbler in action" width="125px"/>
 
 
 Thanks to Xenakios, Squinky.Labs, baconpaul, k-chaffin, and augment for suggestions on improvements to these modules in the VCV community forum.  And thank you Andrew Belt for creating and maintaining VCV Rack.
