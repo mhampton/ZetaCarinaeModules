@@ -34,11 +34,15 @@ The cubic terms herd each suboscillator towards a stable limit cycle with freque
 
 The fifth module is called Rosenchance.  It is a 2-state, 2-emission Hidden Markov Model (HMM).  The modulatable parameters P_A,A and P_B,B control the self-transition probabilities of the two states (A and B):
 
-<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/RosenchanceStates.png?raw=true " alt="Rosenchance state transition diagram" width="200px"/>
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/RosenchanceStates.png?raw=true " alt="Rosenchance state transition diagram" width="300px"/>
 
 Each time a trigger is received, a state transition occurs and an emission value is generated.  For each state there is a modulatable probability P_E1 of emitting the E1 value for that state; the other emission value E2 has probability 1-P_E1.  The outputs also provide the current state (encoded as A=1V, B=2V), and triggers for the entry into each state (similar to the Bernoulli gate).  
 
 <img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Rosenchance.png?raw=true " alt="Rosenchance" width="125px"/>
 
+The sixth module is called Guilden's Turn; it is a 4-state Markovian router. Each of the four states (A,B,C,D) can transition to its neighbors; so for example A can transition to B or D or to itself.  Modulatable controls are given for 2 of the three transition probabilities for each state, and the self-transition probability is derived from the relation that P_i,j + P_i,k + P_i,i = 1 for each state i.  If the forward and backward transition probabilities add up to more than 1, the self-transition probability is zero.  There are four signal inputs corresponding to each state, and the one corresponding to the active state is routed to the Out output.  
 
-Thanks to Xenakios, Squinky.Labs, baconpaul, k-chaffin, and augment for suggestions on improvements to these modules in the VCV community forum.  And thank you Andrew Belt for creating and maintaining VCV Rack.
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/GuildenDiagrams.png?raw=true " alt="GuildensTurn Diagram" width="400px"/>
+
+
+Thanks to Xenakios, Squinky.Labs, baconpaul, k-chaffin, and augment for suggestions on improvements to these modules in the VCV community forum.  Also thanks to cschol on github for all the very speedy reviews of this code.  Finally thank you Andrew Belt for creating and maintaining VCV Rack.
