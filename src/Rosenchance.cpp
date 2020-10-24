@@ -47,7 +47,7 @@ struct Rosenchance : Module {
 		NUM_OUTPUTS
 	};
 
-    float state[8] = {1.f}; //1=A, 2=B
+    float state[16] = {1.f}; //1=A, 2=B
     int counter = 0;
 	std::array<rack::dsp::SchmittTrigger,16> inputTrigger;
 
