@@ -85,6 +85,8 @@ struct IOU : Module {
 
 
 struct IOUWidget : ModuleWidget {
+	float x1 = 8.4f;
+	float x2 = 22.4f;
 	IOUWidget(IOU* module) {
 		setModule(module);
 		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/IOUPlate.svg")));
@@ -94,21 +96,21 @@ struct IOUWidget : ModuleWidget {
 		addChild(createWidget<ScrewSilver>(Vec(0, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 1 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.4, 18)), module, IOU::NOISE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.4, 46)), module, IOU::SPRING_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.4, 72)), module, IOU::DAMP_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.4, 100)), module, IOU::MEAN_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(31.4, 100)), module, IOU::MIX_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(x1, 18)), module, IOU::NOISE_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(x1, 46)), module, IOU::SPRING_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(x1, 72)), module, IOU::DAMP_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(x1, 100)), module, IOU::MEAN_PARAM));
+		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(x2, 100)), module, IOU::MIX_PARAM));
 
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 31)), module, IOU::NOISE_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 59)), module, IOU::SPRING_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 85)), module, IOU::DAMP_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 113)), module, IOU::MEAN_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(31.4, 85)), module, IOU::EXT_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(x1, 31)), module, IOU::NOISE_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(x1, 59)), module, IOU::SPRING_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(x1, 85)), module, IOU::DAMP_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(x1, 113)), module, IOU::MEAN_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(x2, 85)), module, IOU::EXT_INPUT));
 
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(31.4, 25)), module, IOU::RAND_OUTPUT));
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(31.4, 42)), module, IOU::OU_OUTPUT));
-		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(31.4, 61)), module, IOU::IOU_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(x2, 25)), module, IOU::RAND_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(x2, 42)), module, IOU::OU_OUTPUT));
+		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(x2, 61)), module, IOU::IOU_OUTPUT));
 	}
 };
 
