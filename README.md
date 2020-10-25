@@ -44,5 +44,23 @@ The sixth module is called Guilden's Turn; it is a 4-state Markovian router. Eac
 
 <img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/GuildenDiagrams.png?raw=true " alt="GuildensTurn Diagram" width="400px"/>
 
+The seventh module, the Rossler Rustler, is somewhat similar to the Weebler Warbler, in that it is a combination oscillator/filter based on a dynamical system.  The dynamical system is the Rossler Attractor, a 3D chaotic dynamical system with a strange attractor.  
+
+The differential equations are:
+
+x' = k(- y - z)
+
+y' = k(x + A y)
+
+z' = k(B + z (x-C))
+
+The attractor (for the parameters a=0.2,b=0.2,c=5.7) looks like this:
+
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/rossler.png?raw=true " alt="Rossler Attractor" width="400px"/>
+
+The module provides controls for A,B, and C, as well as the ability to perturb the system with an external signal and modify the internal pitch through the parameter k.  
+
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/RosslerRustler.png?raw=true " alt="Rossler Attractor" width="400px"/>
+
 
 Thanks to Xenakios, Squinky.Labs, baconpaul, k-chaffin, and augment for suggestions on improvements to these modules in the VCV community forum.  Also thanks to cschol on github for all the very speedy reviews of this code.  Finally thank you Andrew Belt for creating and maintaining VCV Rack.

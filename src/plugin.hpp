@@ -14,3 +14,4 @@ extern Model* modelIOU;
 extern Model* modelWarbler;
 extern Model* modelRosenchance;
 extern Model* modelGuildensTurn;
+extern Model* modelRosslerRustler;
