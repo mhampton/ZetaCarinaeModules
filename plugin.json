@@ -53,7 +53,7 @@
       "slug": "RosslerRustler",
       "name": "RosslerRustler",
       "description": "Filter/Oscillator combination based on Rossler Attractor",
-      "tags": ["Oscillator", "Filter"]
+      "tags": ["Oscillator", "Effect","Distortion"]
     }
   ]
 }

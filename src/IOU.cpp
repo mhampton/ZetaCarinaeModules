@@ -100,11 +100,11 @@ struct IOUWidget : ModuleWidget {
 		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.4, 100)), module, IOU::MEAN_PARAM));
 		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(31.4, 100)), module, IOU::MIX_PARAM));
 
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 33)), module, IOU::NOISE_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 61)), module, IOU::SPRING_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 87)), module, IOU::DAMP_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 114)), module, IOU::MEAN_INPUT));
-		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(31.4, 87)), module, IOU::EXT_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 31)), module, IOU::NOISE_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 59)), module, IOU::SPRING_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 85)), module, IOU::DAMP_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(10.4, 113)), module, IOU::MEAN_INPUT));
+		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(31.4, 85)), module, IOU::EXT_INPUT));
 
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(31.4, 25)), module, IOU::RAND_OUTPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(31.4, 42)), module, IOU::OU_OUTPUT));

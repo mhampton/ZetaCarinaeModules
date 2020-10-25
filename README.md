@@ -44,7 +44,7 @@ The sixth module is called Guilden's Turn; it is a 4-state Markovian router. Eac
 
 <img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/GuildenDiagrams.png?raw=true " alt="GuildensTurn Diagram" width="400px"/>
 
-The seventh module, the Rossler Rustler, is somewhat similar to the Weebler Warbler, in that it is a combination oscillator/filter based on a dynamical system.  The dynamical system is the Rossler Attractor, a 3D chaotic dynamical system with a strange attractor.  
+The seventh module, the Rossler Rustler, is somewhat similar to the Weebler Warbler, in that it is a combination oscillator/effect/distortion based on a dynamical system.  The dynamical system is the Rossler Attractor, a 3D chaotic dynamical system with a strange attractor.  
 
 The differential equations are:
 
