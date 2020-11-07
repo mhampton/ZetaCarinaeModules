@@ -15,3 +15,4 @@ extern Model* modelWarbler;
 extern Model* modelRosenchance;
 extern Model* modelGuildensTurn;
 extern Model* modelRosslerRustler;
+extern Model* modelFirefly;

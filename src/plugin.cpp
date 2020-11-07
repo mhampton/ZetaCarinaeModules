@@ -15,6 +15,7 @@ void init(Plugin* p) {
 	p->addModel(modelRosenchance);
 	p->addModel(modelGuildensTurn);
 	p->addModel(modelRosslerRustler);
+	p->addModel(modelFirefly);
 	
 
 	// Any other plugin initialization may go here.

@@ -54,6 +54,12 @@
       "name": "RosslerRustler",
       "description": "Filter/Oscillator combination based on Rossler Attractor",
       "tags": ["Oscillator", "Effect","Distortion"]
+    },
+    {
+      "slug": "Firefly",
+      "name": "Firefly",
+      "description": "Phase-coupled oscillator system",
+      "tags": ["Oscillator"]
     }
   ]
 }
