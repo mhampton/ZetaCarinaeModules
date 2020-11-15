@@ -62,15 +62,15 @@ The module provides controls for A,B, and C, as well as the ability to perturb t
 
 <img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/RosslerRustler.png?raw=true " alt="Rossler Attractor" width="400px"/>
 
-The eighth module, still in an experimental development phase (warning: things might change!), is called Firefly.  Its an oscillator based on the Kuramoto model of phase-coupled oscillator systems, which has been extensively studied as a model for synchronization in biological systems including neurons in the brain and firefly flashing.  Firefly has 4 internal oscillators, whose phases evolve according to the ODE
+The eighth module, still in an experimental development phase (warning: things might change!), is called Firefly.  Its an oscillator based on the Kuramoto model of phase-coupled oscillator systems, which has been extensively studied as a model for synchronization in biological systems including neurons in the brain and firefly flashing.  Firefly has 5 internal oscillators, whose phases evolve according to an ODE similar to the Kuramoto model:
 
 T_i' = w_i + K sum(sin(T_j - T_i))
 
-The output of the module is the sum of sin(T_i) for each oscillator, multiplied by a gain.
+The output of the module is the sum of wavetable values for each oscillator, multiplied by a gain.  The wavetables can be set separately for each oscillator; wavetable 0 is a simple sine wave.
 
-The Kuramoto model has mostly been studied for positive coupling; just for fun the option to have negative coupling has been included.
+The Kuramoto model has mostly been studied for positive coupling; just for fun the option to have negative coupling has been included, and the form of the coupling function can be altered to be non-monotonic (through the "Type" control).
 
-<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Firefly1.png?raw=true " alt="Kuramoto Oscillator" width="250px"/>
+<img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Firefly2.png?raw=true " alt="Kuramoto Oscillator" width="250px"/>
 
 
 Thanks to Xenakios, Squinky.Labs, baconpaul, k-chaffin, and augment for suggestions on improvements to these modules in the VCV community forum.  Also thanks to cschol on github for all the very speedy reviews of this code.  Finally thank you Andrew Belt for creating and maintaining VCV Rack.
