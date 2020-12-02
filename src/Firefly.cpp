@@ -236,7 +236,8 @@ struct FireflyModule : Module
                 out[c] += waves[wind2s[c][i]][windex]* winners[c][i]*clist[i];
             }
 
-			outputs[SM_OUTPUT].setVoltage(out[c]*gain, c);
+			//outputs[SM_OUTPUT].setVoltage(out[c]*gain, c);
+            outputs[SM_OUTPUT].setVoltage(clamp(out[c]*gain,-5.f,5.0f), c);
 		}
 		outputs[SM_OUTPUT].setChannels(channels);
         
