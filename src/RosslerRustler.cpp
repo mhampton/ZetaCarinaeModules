@@ -41,14 +41,15 @@ struct RosslerRustlerModule : Module
 			yout[c] = 5.f;
 			zout[c] = 0.f;
 		}
+		for (int i=0;i<3;++i)
+			mxyz[i]=0.0f;
 	};
-
+	float mxyz[3];
 	float * RosslerSlope(float x, float y, float z,float a, float b, float c, float pert){
-		static float xyz[3];
-		xyz[0] = -y-z;
-		xyz[1] = x + a*y + pert;
-		xyz[2] = b + z*(x-c);
-		return xyz;
+		mxyz[0] = -y-z;
+		mxyz[1] = x + a*y + pert;
+		mxyz[2] = b + z*(x-c);
+		return mxyz;
 	}
 
 	void process(const ProcessArgs& args) override {
