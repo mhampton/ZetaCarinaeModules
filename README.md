@@ -73,4 +73,4 @@ The Kuramoto model has mostly been studied for positive coupling; just for fun t
 <img src="https://github.com/mhampton/ZetaCarinaeModules/blob/master/Firefly2.png?raw=true " alt="Kuramoto Oscillator" width="250px"/>
 
 
-Thanks to Xenakios, Squinky.Labs, baconpaul, k-chaffin, and augment for suggestions on improvements to these modules in the VCV community forum.  Also thanks to cschol on github for all the very speedy reviews of this code.  Finally thank you Andrew Belt for creating and maintaining VCV Rack.
+Thanks to Xenakios, KautenjaDSP, Squinky.Labs, baconpaul, k-chaffin, and augment for suggestions  on improvements and bugfixes to these modules in the VCV community forum and github.  Also thanks to cschol on github for all the very speedy reviews of this code.  Finally thank you Andrew Belt for creating and maintaining VCV Rack.
