@@ -130,7 +130,14 @@ struct FireflyModule : Module
 	};
 
     void ctrl_process(){
-        int channels = std::max(inputs[F1R_INPUT].getChannels(),1);
+        int channels = 
+            std::max(inputs[F1R_INPUT].getChannels(),
+            std::max(inputs[F2R_INPUT].getChannels(),
+            std::max(inputs[F3R_INPUT].getChannels(),
+            std::max(inputs[F4R_INPUT].getChannels(),
+            std::max(inputs[F5R_INPUT].getChannels(),
+            std::max(inputs[VOCT_INPUT].getChannels(),
+            std::max(inputs[W1_INPUT].getChannels(),1)))))));
 
         C1p = params[CH1_PARAM].getValue();
         C2p = params[CH2_PARAM].getValue();
