@@ -2,7 +2,7 @@
 
 This project is for my VCV rack modules.  All of these modules should support 16 channels of polyphony.  
 
-![](https://github.com/mhampton/ZetaCarinaeModules/blob/master/BrownianBridgeLogo.png?raw=true | width=100)
+![*](https://github.com/mhampton/ZetaCarinaeModules/blob/master/BrownianBridgeLogo.png?raw=true | width=100)
 
 The first module, the Brownian Bridge (https://en.wikipedia.org/wiki/Brownian_bridge), interpolates between two given values over a given time with a stochastic process - a directed Brownian motion.
 
