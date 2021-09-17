@@ -41,15 +41,13 @@ struct RosslerRustlerModule : Module
 			yout[c] = 5.f;
 			zout[c] = 0.f;
 		}
-		for (int i=0;i<3;++i)
-			mxyz[i]=0.0f;
+		
 	};
-	float mxyz[3];
-	float * RosslerSlope(float x, float y, float z,float a, float b, float c, float pert){
-		mxyz[0] = -y-z;
-		mxyz[1] = x + a*y + pert;
-		mxyz[2] = b + z*(x-c);
-		return mxyz;
+	
+	void RosslerSlope(float x, float y, float z,float a, float b, float c, float pert, float* output){
+		output[0] = -y-z;
+		output[1] = x + a*y + pert;
+		output[2] = b + z*(x-c);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -67,13 +65,14 @@ struct RosslerRustlerModule : Module
 			pitch = dsp::FREQ_C4 * std::pow(2.f, pitch)*6.2831853f;
 			float dt = args.sampleTime * pitch/2.0f;
 			float ext = inputs[EXT_INPUT].getVoltage(c);
+			float k[3];
+			RosslerSlope(xout[c], yout[c], zout[c], A, B, C, ext*gain,k);
+			float k2[3];
+			RosslerSlope(xout[c] + k[0] * dt, yout[c] + k[1] * dt, zout[c] + k[2] * dt, A, B, C, ext*gain,k2);
 
-			float * k = RosslerSlope(xout[c], yout[c], zout[c], A, B, C, ext*gain);
-			float * k2 = RosslerSlope(xout[c] + *(k) * dt, yout[c]+ *(k+1) * dt, zout[c] + *(k+2) * dt, A, B, C, ext*gain);
-
-			xout[c] += (*(k) + *(k2) )* dt;
-			yout[c] += (*(k+1) + *(k2+1) )* dt;
-			zout[c] += (*(k+2) + *(k2+2) )* dt;
+			xout[c] += (k[0] + k2[0] )* dt;
+			yout[c] += (k[1] + k2[1] )* dt;
+			zout[c] += (k[2] + k2[2] )* dt;
 
 			xout[c] = clamp(xout[c],-20.f,20.f);
 			yout[c] = clamp(yout[c],-20.f,20.f);
