@@ -28,7 +28,7 @@ struct RosslerRustlerModule : Module
     float xout[16] = {0};
 	float yout[16] = {0};
 	float zout[16] = {0};
-
+	int mProcMode = 1; 
     RosslerRustlerModule() {
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
 		configParam(A_PARAM, 0.f, 1.f, 0.2f, "A");
@@ -41,15 +41,26 @@ struct RosslerRustlerModule : Module
 			yout[c] = 5.f;
 			zout[c] = 0.f;
 		}
-		for (int i=0;i<3;++i)
-			mxyz[i]=0.0f;
+		
 	};
-	float mxyz[3];
-	float * RosslerSlope(float x, float y, float z,float a, float b, float c, float pert){
-		mxyz[0] = -y-z;
-		mxyz[1] = x + a*y + pert;
-		mxyz[2] = b + z*(x-c);
-		return mxyz;
+	json_t *dataToJson() override {
+		json_t *rootJ = json_object();
+		json_object_set_new(rootJ, "procmode", json_integer(mProcMode));
+		return rootJ;
+	}
+	void dataFromJson(json_t *rootJ) override {
+		if (rootJ == nullptr)
+			return;
+		json_t *procmodej = json_object_get(rootJ, "procmode");
+		if (procmodej)
+		{
+			mProcMode = json_integer_value(procmodej);
+		}
+	}
+	void RosslerSlope(float x, float y, float z,float a, float b, float c, float pert, float* output){
+		output[0] = -y-z;
+		output[1] = x + a*y + pert;
+		output[2] = b + z*(x-c);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -67,13 +78,22 @@ struct RosslerRustlerModule : Module
 			pitch = dsp::FREQ_C4 * std::pow(2.f, pitch)*6.2831853f;
 			float dt = args.sampleTime * pitch/2.0f;
 			float ext = inputs[EXT_INPUT].getVoltage(c);
-
-			float * k = RosslerSlope(xout[c], yout[c], zout[c], A, B, C, ext*gain);
-			float * k2 = RosslerSlope(xout[c] + *(k) * dt, yout[c]+ *(k+1) * dt, zout[c] + *(k+2) * dt, A, B, C, ext*gain);
-
-			xout[c] += (*(k) + *(k2) )* dt;
-			yout[c] += (*(k+1) + *(k2+1) )* dt;
-			zout[c] += (*(k+2) + *(k2+2) )* dt;
+			float k[3];
+			RosslerSlope(xout[c], yout[c], zout[c], A, B, C, ext*gain,k);
+			float k2[3];
+			RosslerSlope(xout[c] + k[0] * dt, yout[c] + k[1] * dt, zout[c] + k[2] * dt, A, B, C, ext*gain,k2);
+			if (mProcMode == 1)
+			{
+				xout[c] += (k[0] + k2[0] )* dt;
+				yout[c] += (k[1] + k2[1] )* dt;
+				zout[c] += (k[2] + k2[2] )* dt;
+			} else // old behavior where the k and k2 pointers were both pointing to the same array
+			{
+				xout[c] += (k2[0] + k2[0] )* dt;
+				yout[c] += (k2[1] + k2[1] )* dt;
+				zout[c] += (k2[2] + k2[2] )* dt;
+			}
+			
 
 			xout[c] = clamp(xout[c],-20.f,20.f);
 			yout[c] = clamp(yout[c],-20.f,20.f);
@@ -114,6 +134,25 @@ struct RosslerRustlerWidget : ModuleWidget {
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(xc2, 118)), module, RosslerRustlerModule::X_OUTPUT));
 		// addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(10.32, 88)), module, RosslerRustlerModule::Y_OUTPUT));
 		// addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(10.32, 102)), module, RosslerRustlerModule::Z_OUTPUT));
+
+	}
+	void appendContextMenu(Menu *menu) override {
+		RosslerRustlerModule *module = dynamic_cast<RosslerRustlerModule*>(this->module);
+		
+		struct ModeMenuItem : MenuItem
+		{
+			RosslerRustlerModule* module = nullptr;
+			
+			void onAction(const event::Action &e) override
+			{
+				if (module->mProcMode == 0)
+					module->mProcMode = 1;
+				else module->mProcMode = 0;
+			}
+		};
+		ModeMenuItem *modeItem = createMenuItem<ModeMenuItem>("Updated processing behavior", CHECKMARK(module->mProcMode));
+		modeItem->module = module;
+		menu->addChild(modeItem);
 
 	}
 };
