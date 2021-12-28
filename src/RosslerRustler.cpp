@@ -31,11 +31,17 @@ struct RosslerRustlerModule : Module
 	int mProcMode = 1; 
     RosslerRustlerModule() {
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
-		configParam(A_PARAM, 0.f, 1.f, 0.2f, "A");
-		configParam(B_PARAM, 0.f, 1.f, 0.2f, "B");
-		configParam(C_PARAM, 0.f, 30.f, 5.7f, "C");
+		configParam(A_PARAM, 0.f, 1.f, 0.2f, "A dynamical parameter");
+		configParam(B_PARAM, 0.f, 1.f, 0.2f, "B dynamical parameter");
+		configParam(C_PARAM, 0.f, 30.f, 5.7f, "C dynamical parameter");
 		configParam(EXT_GAIN_PARAM, 0.f, 10.f, 1.f, "External Gain");
 		configParam(EXT_MIX_PARAM, 0.f, 1.f, 0.5f, "Internal/External Mix");
+
+		configInput(PITCH_INPUT, "Set pitch V/oct");
+		configInput(EXT_INPUT, "External signal");
+
+		configOutput(X_OUTPUT, "X component of Rossler system");
+
 		for (int c = 0; c < 16; c++){
 			xout[c] = 0.f;
 			yout[c] = 5.f;

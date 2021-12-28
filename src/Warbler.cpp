@@ -74,6 +74,16 @@ struct WarblerModule : Module
 		configParam(DGAIN_PARAM, 0.f, 2.f, 0.1f, "Attenuator for external detune input");
 		configParam(GGAIN_PARAM, 0.f, 2.f, 0.1f, "Attenuator for external gain input");
 		configParam(HGAIN_PARAM, 0.f, 2.f, 0.1f, "Attenuator for external harmonic input");
+
+		configInput(NOISE_INPUT, "Modulate additive noise level");
+		configInput(DETUNE_INPUT, "Modulate detune");
+		configInput(GAIN_INPUT, "Modulate gain");
+		configInput(HARMN_INPUT, "Modulate harmonics");
+		configInput(PITCH_INPUT, "Set pitch V/oct");
+		configInput(EXT_INPUT, "External signal");
+
+		configOutput(X_OUTPUT, "X value of summed oscillators");
+		configOutput(Y_OUTPUT, "Y value of summed oscillators");
 	};
 
     void onSampleRateChange() override {

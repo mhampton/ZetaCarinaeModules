@@ -76,7 +76,22 @@ struct GuildensTurn : Module {
         configParam(aPDC_PARAM, 0.f, 2.f, 1.f, "D->C transition probability external attenuation");
         configParam(aPDA_PARAM, 0.f, 2.f, 1.f, "D->A transition probability external attenuation");
         
-        
+        configInput(TRIG_INPUT, "Trigger for state transition");
+        configInput(A_INPUT, "Signal routed through state A");
+        configInput(B_INPUT, "Signal routed through state B");
+        configInput(C_INPUT, "Signal routed through state C");
+        configInput(D_INPUT, "Signal routed through state D");
+        configInput(PAD_INPUT, "Modulate A->D transition probability");
+        configInput(PAB_INPUT, "Modulate A->B transition probability");
+        configInput(PBA_INPUT, "Modulate B->A transition probability");
+        configInput(PBC_INPUT, "Modulate B->C transition probability");
+        configInput(PCB_INPUT, "Modulate C->B transition probability");
+        configInput(PCD_INPUT, "Modulate C->D transition probability");
+        configInput(PDC_INPUT, "Modulate D->C transition probability");
+        configInput(PDA_INPUT, "Modulate D->A transition probability");
+
+        configOutput(OUT_OUTPUT, "Routed signal");
+        configOutput(STATE_OUTPUT, "Current state (A=1,B=2,C=3,D=4 volts)");
 	}
 
 	void process(const ProcessArgs& args) override {

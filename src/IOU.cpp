@@ -46,11 +46,11 @@ struct IOU : Module {
 		configInput(SPRING_INPUT, "Modulate spring constant (restoring force strength)");
 		configInput(DAMP_INPUT, "Modulate damping coefficient");
 		configInput(MEAN_INPUT, "Modulate mean target value");
-		configInput(EXT_INPUT, "External input (additive to output)");
+		configInput(EXT_INPUT, "External signal (additive)");
 		
 		configOutput(RAND_OUTPUT, "White noise (mixed additively with external in)");
-		configOutput(OU_OUTPUT, "Ornstein-Uhlenbeck process output");
-        configOutput(IOU_OUTPUT, "Integrated (smoothed) Ornstein-Uhlenbeck process output");
+		configOutput(OU_OUTPUT, "Ornstein-Uhlenbeck process signal");
+        configOutput(IOU_OUTPUT, "Integrated (smoothed) Ornstein-Uhlenbeck signal");
 	}
 
 	void onSampleRateChange() override {

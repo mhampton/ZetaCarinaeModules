@@ -71,6 +71,21 @@ struct Rosenchance : Module {
         configParam(aBE1_PARAM, -10.f, 10.f, 1.f, "B's e1 emission value external attenuation");
         configParam(aBE2_PARAM, -10.f, 10.f, 1.f, "B's e2 emission value external attenuation");
 		//configParam(TIME_PARAM, -10.f, 10.f, 1.f, "Time","", 2.0);
+
+        configInput(TRIG_INPUT, "Trigger for state transition (and emission)");
+        configInput(PA_INPUT, "Modulation of A->A state transition probability");
+        configInput(PAE1_INPUT, "Modulation of state A's e1 emission probability");
+        configInput(AE1_INPUT, "Modulation of state A's  e1 emission value");
+        configInput(AE2_INPUT, "Modulation of state A's e2 emission value");
+        configInput(PB_INPUT, "Modulation of B->B state transition probability");
+        configInput(PBE1_INPUT, "Modulation of state B's e1 emission probability");
+        configInput(BE1_INPUT, "Modulation of state B's  e1 emission value");
+        configInput(BE2_INPUT, "Modulation of state B's  e2 emission value");
+
+        configOutput(OUT_OUTPUT, "Emission value");
+        configOutput(STATE_OUTPUT, "Current state (A=1, B=2 Volts)");
+        configOutput(A_OUTPUT, "Triggers when entering state A");
+        configOutput(B_OUTPUT, "Triggers when entering state B");
 	}
 
 	void process(const ProcessArgs& args) override {

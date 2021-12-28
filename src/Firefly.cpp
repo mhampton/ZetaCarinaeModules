@@ -94,6 +94,24 @@ struct FireflyModule : Module
         configParam(FM_PARAM, 0.f,  1.f, 0.0f, "FM Index"); 
         configParam(GAIN_PARAM, 0.f,  10.f, 1.0f, "Gain"); 
 
+        configInput(F1R_INPUT, "Add to Freq. ratio 1");
+        configInput(F2R_INPUT, "Add to Freq. ratio 2");
+        configInput(F3R_INPUT, "Add to Freq. ratio 3");
+        configInput(F4R_INPUT, "Add to Freq. ratio 4");
+        configInput(F5R_INPUT, "Add to Freq. ratio 5");
+        configInput(W1_INPUT, "Wavetable 1 modulation");
+        configInput(W2_INPUT, "Wavetable 2 modulation");
+        configInput(W3_INPUT, "Wavetable 3 modulation");
+        configInput(W4_INPUT, "Wavetable 4 modulation");
+        configInput(W5_INPUT, "Wavetable 5 modulation");
+        configInput(K_INPUT, "Coupling constant modulation");
+        configInput(KTYPE_INPUT, "Modulate coupling curve morph parameter");
+        configInput(FM_INPUT, "FM V/oct");
+        configInput(GAIN_INPUT, "Gain modulation (additive)");
+		configInput(VOCT_INPUT, "V/oct reference frequency");
+
+        configOutput(SM_OUTPUT, "Combined signal");
+
         // initialize coupling curves
 		for (int i=0; i<102; i++){
 			    Kcurves[0][i] = std::sin((i-50.f)*npi/50.f);

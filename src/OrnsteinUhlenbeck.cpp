@@ -33,6 +33,13 @@ struct OrnsteinUhlenbeck : Module {
 		configParam(NOISE_PARAM, 0.f, 5.f, 0.f, "Noise level");
 		configParam(SPRING_PARAM, 0.f, 10.f, 0.f, "Mean reverting strength");
 		configParam(MEAN_PARAM, -10.f, 10.f, 1.f, "Mean");
+
+		configInput(NOISE_INPUT, "Modulate noise/step level");
+		configInput(SPRING_INPUT, "Modulate spring constant (restoring force strength)");
+		configInput(MEAN_INPUT, "Modulate mean target value");
+		configInput(TRIG_INPUT, "Trigger resets to mean");
+
+		configOutput(SIG_OUTPUT, "Ornstein-Uhlenbeck process signal");
 	}
 
 	void onSampleRateChange() override {

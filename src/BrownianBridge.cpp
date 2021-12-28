@@ -35,9 +35,17 @@ struct BrownianBridge : Module {
 	BrownianBridge() {
 		config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
 		configParam(NOISE_PARAM, 0.f, 1.f, 0.f, "Noise level");
-		configParam(RANGE_PARAM, -10.f, 10.f, 5.f, "Range");
-		configParam(OFFSET_PARAM, -10.f, 10.f, 0.f, "Offset");
-		configParam(TIME_PARAM, -10.f, 10.f, 1.f, "Time","", 2.0);
+		configParam(RANGE_PARAM, -10.f, 10.f, 5.f, "Output range");
+		configParam(OFFSET_PARAM, -10.f, 10.f, 0.f, "Offset (minimum value)");
+		configParam(TIME_PARAM, -10.f, 10.f, 1.f, "Transition Time","", 2.0);
+
+		configInput(RANGE_INPUT, "Output range modulation");
+		configInput(OFFSET_INPUT, "Offset (minimum value) modulation");
+		configInput(NOISE_INPUT, "Noise level modulation");
+		configInput(TIME_INPUT, "Transition time modulation");
+		configInput(TRIG_INPUT, "Reset to minimum trigger");
+
+		configOutput(SIG_OUTPUT, "Signal");
 	}
 
 	void onSampleRateChange() override {
