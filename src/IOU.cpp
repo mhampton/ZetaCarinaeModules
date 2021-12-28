@@ -41,6 +41,16 @@ struct IOU : Module {
         configParam(DAMP_PARAM, 0.f, 10.f, 1.f, "Velocity damping");
 		configParam(MEAN_PARAM, -10.f, 10.f, 0.f, "Mean");
         configParam(MIX_PARAM, 0.f, 1.f, 0.f, "INT/EXT mix");
+
+		configInput(NOISE_INPUT, "Modulate noise/step level");
+		configInput(SPRING_INPUT, "Modulate spring constant (restoring force strength)");
+		configInput(DAMP_INPUT, "Modulate damping coefficient");
+		configInput(MEAN_INPUT, "Modulate mean target value");
+		configInput(EXT_INPUT, "External input (additive to output)");
+		
+		configOutput(RAND_OUTPUT, "White noise (mixed additively with external in)");
+		configOutput(OU_OUTPUT, "Ornstein-Uhlenbeck process output");
+        configOutput(IOU_OUTPUT, "Integrated (smoothed) Ornstein-Uhlenbeck process output");
 	}
 
 	void onSampleRateChange() override {
