@@ -88,7 +88,7 @@ struct WarblerModule : Module
 		configOutput(X_OUTPUT, "X value of summed oscillators");
 		configOutput(Y_OUTPUT, "Y value of summed oscillators");
 		normalRandomTable.resize(normalRandomTableSize);
-		for (int i=0;i<normalRandomTable.size();++i)
+		for (size_t i=0;i<normalRandomTable.size();++i)
 			normalRandomTable[i] = random::normal();
 	};
 
