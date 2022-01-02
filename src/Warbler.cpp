@@ -31,7 +31,7 @@ struct WarblerModule : Module
 		Y_OUTPUT,
 		NUM_OUTPUTS
 	};
-	static const int normalRandomTableSize = 1024*1024;
+	static const int normalRandomTableSize = 1024*1024*4;
 	std::vector<float> normalRandomTable;
 	int normalRandomTableIndex = 0;
     float xoutsignal[16] = {0};
