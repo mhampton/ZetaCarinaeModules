@@ -31,7 +31,7 @@ struct WarblerModule : Module
 		Y_OUTPUT,
 		NUM_OUTPUTS
 	};
-	static const int normalRandomTableSize = 1024*1024*4;
+	static const int normalRandomTableSize = 1000003;
 	std::vector<float> normalRandomTable;
 	int normalRandomTableIndex = 0;
     float xoutsignal[16] = {0};
@@ -122,7 +122,9 @@ struct WarblerModule : Module
 				
 				float kf = dsp::FREQ_C4 * std::pow(2.f, pitch)*6.2831853f;
 				float r = normalRandomTable[normalRandomTableIndex]*noise*sqrtdelta; 
-				normalRandomTableIndex = (normalRandomTableIndex + 1) & (normalRandomTableSize-1);
+				++normalRandomTableIndex;
+				if (normalRandomTableIndex==normalRandomTableSize)
+					normalRandomTableIndex = 0;
 				float xdnew = rf*kf*(-yint[c*8 + ri] + 2.f*xint[c*8 + ri]*(1.0f - rad2) + ingain*extin)*args.sampleTime + r;
 				
 				yint[c*8 + ri] += rf*kf*(xint[c*8 + ri] + 2.f*yint[c*8 + ri]*(1.0f - rad2))*args.sampleTime;
